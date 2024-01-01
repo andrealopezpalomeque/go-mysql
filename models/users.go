@@ -1,5 +1,9 @@
 package models
 
+import (
+	"gomysql/db"
+)
+
 
 type User struct {
 	Id int
@@ -18,3 +22,27 @@ const UserSchema string = `CREATE TABLE users (
 )`
 
 
+//constructor de un nuevo usuario
+func NewUser(username string, password string, email string) *User{
+	user := &User{
+		Username: username,
+		Password: password,
+		Email: email,
+	}
+	return user
+}
+
+//funcion para guardar un usuario en la base de datos
+func CreateUser(username, password, email string) *User{
+	user := NewUser(username, password, email)
+	user.insert()
+	return user
+}
+
+//insertar registro
+func(user *User) insert(){
+	sql := "INSERT users SET username=?, password=?, email=?"
+
+	db.Exec(sql, user.Username, user.Password, user.Email)
+
+}
