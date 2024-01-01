@@ -37,4 +37,26 @@ func Ping(){
 	fmt.Println("Pong")
 }
 
+//verificar si la TABLA existe
+func ExistsTable(tableName string) bool{
+	sql := fmt.Sprintf("SHOW TABLES LIKE '%s'", tableName)
+	rows, err := db.Query(sql)
+	if err != nil {
+		fmt.Println("Error:", err)
+	}
+	return rows.Next() //devuelve un booleano
+}
+
+//------CREAR TABLAS-----
+func CreateTable(schema string, name string){
+	if !ExistsTable(name){	
+		_, err := db.Exec(schema)
+		if err != nil {
+			fmt.Println("Error:", err)
+		}}
+
+}
+
+
+
 
