@@ -57,6 +57,15 @@ func CreateTable(schema string, name string){
 
 }
 
+//REINICIAR EL REGISTRO DE UNA TABLA
+func TruncateTable(tableName string){
+	sql := fmt.Sprintf("TRUNCATE TABLE %s", tableName)
+	_, err := db.Exec(sql)
+	if err != nil {
+		fmt.Println("Error:", err)
+	}
+}
+
 
 //polimosfismo de Exec
 func Exec(query string, args ...interface{}) (sql.Result, error){

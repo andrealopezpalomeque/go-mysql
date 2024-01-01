@@ -12,7 +12,10 @@ func main(){
 	//db.Ping() //verifica si la conexion esta activa
 
 	fmt.Println(db.ExistsTable("users"))
+	
 	db.CreateTable(models.UserSchema, "users")
+
+	//db.TruncateTable("users")
 
 	db.Close()
 }
