@@ -58,5 +58,24 @@ func CreateTable(schema string, name string){
 }
 
 
+//polimosfismo de Exec
+func Exec(query string, args ...interface{}) (sql.Result, error){
+	result, err := db.Exec(query, args...)
+	if err != nil {
+		fmt.Println("Error:", err)
+	}
+	return result, err
+}
+
+//polimosfismo de Query
+func Query(query string, args ...interface{}) (*sql.Rows, error){
+	rows, err := db.Query(query, args...)
+	if err != nil {
+		fmt.Println("Error:", err)
+	}
+	return rows, err
+}
+
+
 
 
