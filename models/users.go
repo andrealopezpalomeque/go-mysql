@@ -6,7 +6,7 @@ import (
 
 
 type User struct {
-	Id int
+	Id int64
 	Username string
 	Password string
 	Email string
@@ -32,7 +32,7 @@ func NewUser(username string, password string, email string) *User{
 	return user
 }
 
-//funcion para guardar un usuario en la base de datos
+//crear usuario e insertar en la base de datos
 func CreateUser(username, password, email string) *User{
 	user := NewUser(username, password, email)
 	user.insert()
@@ -43,6 +43,8 @@ func CreateUser(username, password, email string) *User{
 func(user *User) insert(){
 	sql := "INSERT users SET username=?, password=?, email=?"
 
-	db.Exec(sql, user.Username, user.Password, user.Email)
+	result, _ := db.Exec(sql, user.Username, user.Password, user.Email)
+
+	user.Id, _ = result.LastInsertId() //devuelve el id del ultimo registro insertado
 
 }
