@@ -12,6 +12,8 @@ type User struct {
 	Email string
 }
 
+type Users []User
+
 
 const UserSchema string = `CREATE TABLE users (
 	id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -47,4 +49,21 @@ func(user *User) insert(){
 
 	user.Id, _ = result.LastInsertId() //devuelve el id del ultimo registro insertado
 
+}
+
+
+//listar todos los usuarios
+func ListUsers() Users{
+	sql := "SELECT id, username, password, email FROM users"
+	users := Users{}
+	rows, _ := db.Query(sql) 
+
+	//recorro el rows para obtener cada registro
+	for rows.Next(){
+		user := User{}
+		rows.Scan(&user.Id, &user.Username, &user.Password, &user.Email)
+		users = append(users, user)
+	}
+
+	return users
 }

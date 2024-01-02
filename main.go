@@ -15,10 +15,15 @@ func main(){
 	
 	//db.CreateTable(models.UserSchema, "users")
 
-	user := models.CreateUser("hipolito", "8989", "hipolito.coronel@telco.com.ar")
-	fmt.Println(user)
+	//user := models.CreateUser("hipolito", "8989", "hipolito.coronel@telco.com.ar")
+	//fmt.Println(user)
+
+	users := models.ListUsers()
+	fmt.Println(users)
 
 	//db.TruncateTable("users")
+
+
 
 	db.Close()
 }
